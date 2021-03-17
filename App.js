@@ -1,21 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import Lamp from "./components/views/Lamp/Lamp";
+import LoginFB from "./components/views/LoginFB/LoginFB";
+import LoginMoMo from "./components/views/LoginMoMo/LoginMoMo";
+import RegisterForm from "./components/views/RegisterForm/RegisterForm";
+import TrafficLight from "./components/views/TrafficLight/TrafficLight";
+import Youtube from "./components/views/Youtube/Youtube";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <Youtube></Youtube>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
