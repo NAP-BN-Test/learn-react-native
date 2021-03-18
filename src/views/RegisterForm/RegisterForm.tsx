@@ -17,6 +17,7 @@ import Constants from "expo-constants";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik } from "formik";
 import ValidationForm from "../../../validation";
+import FormField from "../../components/FormField.tsx/FormFieldComponent";
 
 // Tính chiều dài, chiều rộng của thiết bị
 const windowWidth = Dimensions.get("window").width;
@@ -67,18 +68,15 @@ const RegisterForm = () => {
             isValid,
           }) => (
             <View style={styles.body}>
-              <View style={styles.input}>
-                <Text style={styles.title_input}>First Name</Text>
-                <TextInput
-                  style={styles.textinput}
-                  onChangeText={handleChange("firstName")}
-                  onBlur={handleBlur("firstName")}
-                  value={values.firstName}
-                ></TextInput>
-                {touched.firstName && errors.firstName ? (
-                  <Text style={styles.textYup}>{errors.firstName}</Text>
-                ) : null}
-              </View>
+              <FormField
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                values={values}
+                label="firstName"
+                title="First name"
+                touched={touched}
+                errors={errors}
+              />
               <View style={styles.input}>
                 <Text style={styles.title_input}>Last Name</Text>
                 <TextInput
