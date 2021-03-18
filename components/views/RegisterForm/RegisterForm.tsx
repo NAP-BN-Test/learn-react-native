@@ -15,12 +15,18 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Formik } from "formik";
+import ValidationForm from "../../../validation";
 
 // Tính chiều dài, chiều rộng của thiết bị
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const RegisterForm = () => {
+  function isFormValid(isValid, touched) {
+    return isValid && Object.keys(touched).length !== 0;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light"></StatusBar>
@@ -33,34 +39,112 @@ const RegisterForm = () => {
         extraScrollHeight={100}
         enableOnAndroid={true}
         style={styles.body}
+        keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.body}>
-          <View style={styles.input}>
-            <Text style={styles.title_input}>First Name</Text>
-            <TextInput style={styles.textinput}></TextInput>
-          </View>
-          <View style={styles.input}>
-            <Text style={styles.title_input}>Last Name</Text>
-            <TextInput style={styles.textinput}></TextInput>
-          </View>
-          <View style={styles.input}>
-            <Text style={styles.title_input}>Email Address</Text>
-            <TextInput style={styles.textinput}></TextInput>
-          </View>
-          <View style={styles.input}>
-            <Text style={styles.title_input}>Password</Text>
-            <TextInput style={styles.textinput}></TextInput>
-          </View>
-          <View style={styles.input}>
-            <Text style={styles.title_input}>Confirm Password</Text>
-            <TextInput style={styles.textinput}></TextInput>
-          </View>
-          <View style={{ paddingTop: 20 }}>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.text_button}>SUBMIT</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }}
+          onSubmit={(values) => {
+            console.log(values);
+            if (values.firstName == "") {
+              console.log("Không được để trống First Name");
+            }
+          }}
+          validationSchema={ValidationForm}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            isValid,
+          }) => (
+            <View style={styles.body}>
+              <View style={styles.input}>
+                <Text style={styles.title_input}>First Name</Text>
+                <TextInput
+                  style={styles.textinput}
+                  onChangeText={handleChange("firstName")}
+                  onBlur={handleBlur("firstName")}
+                  value={values.firstName}
+                ></TextInput>
+                {touched.firstName && errors.firstName ? (
+                  <Text style={styles.textYup}>{errors.firstName}</Text>
+                ) : null}
+              </View>
+              <View style={styles.input}>
+                <Text style={styles.title_input}>Last Name</Text>
+                <TextInput
+                  style={styles.textinput}
+                  onChangeText={handleChange("lastName")}
+                  onBlur={handleBlur("lastName")}
+                  value={values.lastName}
+                ></TextInput>
+              </View>
+              <View style={styles.input}>
+                <Text style={styles.title_input}>Email Address</Text>
+                <TextInput
+                  style={styles.textinput}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                ></TextInput>
+                {touched.email && errors.email ? (
+                  <Text style={styles.textYup}>{errors.email}</Text>
+                ) : null}
+              </View>
+              <View style={styles.input}>
+                <Text style={styles.title_input}>Password</Text>
+                <TextInput
+                  style={styles.textinput}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                ></TextInput>
+                {touched.password && errors.password ? (
+                  <Text style={styles.textYup}>{errors.password}</Text>
+                ) : null}
+              </View>
+              <View style={styles.input}>
+                <Text style={styles.title_input}>Confirm Password</Text>
+                <TextInput
+                  style={styles.textinput}
+                  onChangeText={handleChange("confirmPassword")}
+                  onBlur={handleBlur("confirmPassword")}
+                  value={values.confirmPassword}
+                ></TextInput>
+                {touched.confirmPassword && errors.confirmPassword ? (
+                  <Text style={styles.textYup}>{errors.confirmPassword}</Text>
+                ) : null}
+              </View>
+              <View style={{ paddingTop: 20 }}>
+                <TouchableOpacity
+                  // style={styles.button}
+                  onPress={handleSubmit}
+                  disabled={!isFormValid(isValid, touched)}
+                >
+                  <View
+                    style={[
+                      styles.button,
+                      {
+                        opacity: isFormValid(isValid, touched) ? 1 : 0.5,
+                      },
+                    ]}
+                  >
+                    <Text style={styles.text_button}>SUBMIT</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+        </Formik>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -103,6 +187,7 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 5,
     height: 40,
+    paddingHorizontal: 10,
   },
   button: {
     backgroundColor: "#3498DB",
@@ -115,6 +200,9 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
+  },
+  textYup: {
+    color: "red",
   },
 });
 

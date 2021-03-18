@@ -7,5 +7,5 @@ import TrafficLight from "./components/views/TrafficLight/TrafficLight";
 import Youtube from "./components/views/Youtube/Youtube";
 
 export default function App() {
-  return <Youtube></Youtube>;
+  return <RegisterForm></RegisterForm>;
 }
