@@ -77,51 +77,47 @@ const RegisterForm = () => {
                 touched={touched}
                 errors={errors}
               />
-              <View style={styles.input}>
-                <Text style={styles.title_input}>Last Name</Text>
-                <TextInput
-                  style={styles.textinput}
-                  onChangeText={handleChange("lastName")}
-                  onBlur={handleBlur("lastName")}
-                  value={values.lastName}
-                ></TextInput>
-              </View>
-              <View style={styles.input}>
-                <Text style={styles.title_input}>Email Address</Text>
-                <TextInput
-                  style={styles.textinput}
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  value={values.email}
-                ></TextInput>
-                {touched.email && errors.email ? (
-                  <Text style={styles.textYup}>{errors.email}</Text>
-                ) : null}
-              </View>
-              <View style={styles.input}>
-                <Text style={styles.title_input}>Password</Text>
-                <TextInput
-                  style={styles.textinput}
-                  onChangeText={handleChange("password")}
-                  onBlur={handleBlur("password")}
-                  value={values.password}
-                ></TextInput>
-                {touched.password && errors.password ? (
-                  <Text style={styles.textYup}>{errors.password}</Text>
-                ) : null}
-              </View>
-              <View style={styles.input}>
-                <Text style={styles.title_input}>Confirm Password</Text>
-                <TextInput
-                  style={styles.textinput}
-                  onChangeText={handleChange("confirmPassword")}
-                  onBlur={handleBlur("confirmPassword")}
-                  value={values.confirmPassword}
-                ></TextInput>
-                {touched.confirmPassword && errors.confirmPassword ? (
-                  <Text style={styles.textYup}>{errors.confirmPassword}</Text>
-                ) : null}
-              </View>
+
+              <FormField
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                values={values}
+                label="lastName"
+                title="Last name"
+                touched={touched}
+                errors={errors}
+              />
+
+              <FormField
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                values={values}
+                label="email"
+                title="Email"
+                touched={touched}
+                errors={errors}
+              />
+
+              <FormField
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                values={values}
+                label="password"
+                title="Password"
+                touched={touched}
+                errors={errors}
+              />
+
+              <FormField
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                values={values}
+                label="confirmPassword"
+                title="ConfirmPassword"
+                touched={touched}
+                errors={errors}
+              />
+
               <View style={{ paddingTop: 20 }}>
                 <TouchableOpacity
                   // style={styles.button}

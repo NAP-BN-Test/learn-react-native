@@ -12,7 +12,7 @@ const FormField = ({
 }) => {
   return (
     <View style={styles.input}>
-      <Text style={styles.title_input}>{{ title }}</Text>
+      <Text style={styles.title_input}>{title}</Text>
       <TextInput
         style={styles.textinput}
         onChangeText={handleChange(label)}
